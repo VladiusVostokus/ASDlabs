@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int recursion_alg()
+float recursion_alg()
 {
-    int n; double F_i = 1; float x;
+    int n; float F_i = 1.0; float x;
 
     printf("Enter n: ");
     scanf("%d",&n);
@@ -25,9 +25,8 @@ int recursion_alg()
 
 int main()
 {
-    double result = recursion_alg();
-
-    printf("F_i = %.5f",result);
+    float result = recursion_alg();
+    printf("F_i = %f",result);
 
     return 0;
 }
