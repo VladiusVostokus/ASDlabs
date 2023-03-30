@@ -4,22 +4,27 @@
 
 float recursion(float x, int i,float F_i) {
 
+    float sum = 1;
+
     if (i == 1)
-        return F_i;
+
+        sum = F_i;
 
     else {
 
         F_i += -F_i * (2*x / 3 - 1);
-        recursion(x, i-1, F_i);
+        sum = recursion(x, i-1, F_i);
 
     }
+
+    return sum;
 
 }
 
 int main()
 {
-    float res = recursion(1,5,1);
-    printf("%f",res);
+    float sum = recursion(1,5,1);
+    printf("%f",sum);
 
     return 0;
 }
