@@ -2,29 +2,28 @@
 #include <stdlib.h>
 
 
-float recursion(float x, int i,float F_i) {
+float recursion(float x, unsigned int i,float F_i, float sum) {
 
-    float sum = 1;
+    sum += F_i;
+    printf("res = %f ",sum);
 
-    if (i == 1)
-
-        sum = F_i;
+    if (i == 1){
+        return F_i;
+    }
 
     else {
 
-        F_i += -F_i * (2*x / 3 - 1);
-        sum = recursion(x, i-1, F_i);
-
+        F_i = -F_i * (2*x / 3 - 1);
+        printf("F_i = %f\n",F_i);
+        recursion(x, i-1, F_i,sum);
     }
-
-    return sum;
 
 }
 
 int main()
 {
-    float sum = recursion(1,5,1);
-    printf("%f",sum);
+    float result = recursion(1.1, 5, 1, 0);
+    printf("%f",result);
 
     return 0;
 }
