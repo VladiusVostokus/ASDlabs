@@ -17,15 +17,13 @@ float recursion(float x, unsigned int i,float F_i) {
 
 float sum_count(float x, unsigned int i, float F_i) {
 
-    float sum = 0;
+    float sum = F_i;
 
     if (i == 1)
         return sum;
 
     else
-        sum = sum_count(1.1, i - 1, F_i) + recursion(1.1, i - 1, F_i);
-
-
+        sum = sum_count(1.1, i - 1, F_i) + recursion(1.1, i, F_i);
 }
 
 int main()
