@@ -50,19 +50,29 @@ l_list * del_list(l_list *l_p){
 
 int main()
 {
-
     l_list *list_p;
+    int n;
 
-    list_p = l_list_init(99);
-    list_p = add_list(list_p,12);
-    list_p = add_list(list_p,13);
+    printf("Enter the count of elemets of list:");
+    scanf("%d",&n);
+    printf("\n");
 
+
+    list_p = l_list_init(n);
+
+    if(n > 1) {
+        for(int i = n - 1; i > 0; i--){
+            list_p = add_list(list_p,i);
+        }
+    }
 
     printf("\n");
 
-    list_p = del_list(list_p);
-    list_p = del_list(list_p);
-    list_p = del_list(list_p);
+    for(int i = 1; i <= n; i++){
+        list_p = del_list(list_p);
+    }
+
+
 
     return 0;
 }
