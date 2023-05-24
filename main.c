@@ -40,19 +40,42 @@ l_list * add_list(l_list *l_p, int item) {
 
     return node_p;
 }
-//dddddddddddddddddddddddd
+
+
 l_list * print_list(l_list *l_p) {
 
-    struct linked_list *first_node = l_p;
+    size_t first_node = l_p;
 
     while(l_p != NULL) {
 
-        printf("element = %d\n", l_p->info);
+        printf("info = %d\n", l_p->info);
         l_p = l_p->next_p;
-
 
     }
     return first_node;
+}
+
+l_list * move_left(l_list *l_p, int n) {
+
+    int first_item;
+    int elem;
+    size_t first_node = l_p;
+
+    first_item = l_p->info;
+
+    for(int i = 1; i < n; i++) {
+
+        l_p = l_p->next_p;
+        elem = l_p->info;
+        l_p = l_p->prev_p;
+        l_p->info = elem;
+        l_p = l_p->next_p;
+
+    }
+    l_p->info = first_item;
+
+    return first_node;
+
 }
 
 
@@ -81,11 +104,12 @@ int main()
 
     list_p = l_list_init(n);
 
-    /*
-    l_list *first_node = list_p;
+
+    /*l_list *first_node = list_p;
     printf("firts node = %d \n", first_node);
     free(first_node);
     */
+
 
 
     if(n > 1) {
@@ -97,6 +121,7 @@ int main()
     printf("\n");
 
     list_p = print_list(list_p);
+    list_p = move_left(list_p, 5);
 
     printf("\n");
 
