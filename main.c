@@ -40,6 +40,20 @@ l_list * add_list(l_list *l_p, int item) {
 
     return node_p;
 }
+//dddddddddddddddddddddddd
+l_list * print_list(l_list *l_p) {
+
+    struct linked_list *first_node = l_p;
+
+    while(l_p != NULL) {
+
+        printf("element = %d\n", l_p->info);
+        l_p = l_p->next_p;
+
+
+    }
+    return first_node;
+}
 
 
 l_list * del_list(l_list *l_p) {
@@ -59,6 +73,7 @@ int main()
     l_list *list_p;
     int n;
 
+
     printf("Enter the count of elements of list:");
     scanf("%d",&n);
     printf("\n");
@@ -66,11 +81,22 @@ int main()
 
     list_p = l_list_init(n);
 
+    /*
+    l_list *first_node = list_p;
+    printf("firts node = %d \n", first_node);
+    free(first_node);
+    */
+
+
     if(n > 1) {
         for(int i = n - 1; i > 0; i--){
             list_p = add_list(list_p,i);
         }
     }
+
+    printf("\n");
+
+    list_p = print_list(list_p);
 
     printf("\n");
 
