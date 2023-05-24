@@ -48,31 +48,38 @@ l_list * print_list(l_list *l_p) {
 
     while(l_p != NULL) {
 
-        printf("info = %d\n", l_p->info);
+        printf("info = %d ", l_p->info);
         l_p = l_p->next_p;
 
     }
     return first_node;
 }
 
-l_list * move_left(l_list *l_p, int n) {
+l_list * move_left(l_list *l_p, int n, int k) {
 
     int first_item;
     int elem;
     size_t first_node = l_p;
 
-    first_item = l_p->info;
 
-    for(int i = 1; i < n; i++) {
 
-        l_p = l_p->next_p;
-        elem = l_p->info;
-        l_p = l_p->prev_p;
-        l_p->info = elem;
-        l_p = l_p->next_p;
+    for(int i = 1; i <= k; i++){
 
+        first_item = l_p->info;
+
+        for(int j = 1; j < n; j++) {
+
+            l_p = l_p->next_p;
+            elem = l_p->info;
+            l_p = l_p->prev_p;
+            l_p->info = elem;
+            l_p = l_p->next_p;
+
+        }
+
+        l_p->info = first_item;
+        l_p = first_node;
     }
-    l_p->info = first_item;
 
     return first_node;
 
@@ -94,13 +101,14 @@ l_list * del_list(l_list *l_p) {
 int main()
 {
     l_list *list_p;
-    int n;
+    int n,k;
 
 
-    printf("Enter the count of elements of list:");
+    printf("Enter the count of elements of list: ");
     scanf("%d",&n);
+    printf("How many times displacement of elements needs be done(not more than n)?: ");
+    scanf("%d",&k);
     printf("\n");
-
 
     list_p = l_list_init(n);
 
@@ -109,8 +117,6 @@ int main()
     printf("firts node = %d \n", first_node);
     free(first_node);
     */
-
-
 
     if(n > 1) {
         for(int i = n - 1; i > 0; i--){
@@ -121,8 +127,11 @@ int main()
     printf("\n");
 
     list_p = print_list(list_p);
-    list_p = move_left(list_p, 5);
+    list_p = move_left(list_p, n,k);
+    printf("\n");
+    list_p = print_list(list_p);
 
+    printf("\n");
     printf("\n");
 
     for(int i = 1; i <= n; i++){
