@@ -10,58 +10,84 @@ typedef struct linked_list {
 } l_list ;
 
 
-l_list * l_list_init(int item) {
 
-    l_list *l_p;
-    l_p = malloc(sizeof(struct linked_list));
+l_list * l_list_init(int item);
+l_list * add_node(l_list *l_p, int item);
+l_list* add_list(l_list * l_p, int n);
+l_list * print_list(l_list *l_p);
+l_list * move_left(l_list *l_p, int n, int k);
+l_list * del_node(l_list *l_p);
+l_list * del_list(l_list *l_p, int n);
 
-        *l_p = (l_list){ .info = item,
-        .next_p = NULL,.prev_p = NULL
-    };
 
-    printf("ptr=%d info=%d next=%d prev=%d \n",l_p,l_p->info,l_p->next_p,l_p->prev_p);
 
-    return l_p;
+int main()
+{
+    l_list *list_p;
+    int n,k;
+
+    printf("Enter the count of elements of list(variable n): ");
+    scanf("%d",&n);
+    printf("Enter the count of displacements(variable k, less than n): ");
+    scanf("%d",&k);
+    printf("\n");
+
+    if(k < n) {
+
+        list_p = l_list_init(n);
+        list_p = add_list(list_p,n);
+
+        printf("List before diplacement:\n");
+
+        list_p = print_list(list_p);
+        list_p = move_left(list_p, n,k);
+
+        printf("\n");
+
+        printf("List after diplacement:\n");
+        list_p = print_list(list_p);
+
+        list_p = del_list(list_p,n);
+
+    }
+    else printf("k should be less than n, try again");
+
+
+    return 0;
 }
 
 
-l_list * add_list(l_list *l_p, int item) {
 
-    struct linked_list *node_p;
-    node_p = malloc(sizeof(struct linked_list));
 
-    if (l_p != NULL) l_p->prev_p = node_p;
+l_list * del_node(l_list *l_p) {
 
-    node_p->info = item;
-    node_p->next_p = l_p;
-    node_p->prev_p = NULL;
+    size_t node_p = l_p->next_p;
 
-    printf("ptr=%d info=%d next=%d prev=%d \n",node_p,node_p->info,node_p->next_p,node_p->prev_p);
+    if(!l_p) free(l_p);
+
+    //printf("ptr=%d info=%d next=%d prev=%d \n",l_p,l_p->info,l_p->next_p,l_p->prev_p);
 
     return node_p;
 }
 
 
-l_list * print_list(l_list *l_p) {
 
-    size_t first_node = l_p;
+l_list * del_list(l_list *l_p, int n) {
 
-    while(l_p != NULL) {
-
-        printf("info = %d ", l_p->info);
-        l_p = l_p->next_p;
-
+    for(int i = 1; i <= n; i++){
+        l_p = del_node(l_p);
     }
-    return first_node;
+
+    return l_p;
 }
+
+
 
 l_list * move_left(l_list *l_p, int n, int k) {
 
     int first_item;
     int elem;
     size_t first_node = l_p;
-
-
 
     for(int i = 1; i <= k; i++){
 
@@ -85,59 +111,60 @@ l_list * move_left(l_list *l_p, int n, int k) {
 
 }
 
+l_list * print_list(l_list *l_p) {
 
-l_list * del_list(l_list *l_p) {
+    size_t first_node = l_p;
 
-    size_t node_p = l_p->next_p;
+    while(l_p) {
 
-    if(!l_p) free(l_p);
+        printf("info = %d ", l_p->info);
+        l_p = l_p->next_p;
 
-    printf("ptr=%d info=%d next=%d prev=%d \n",l_p,l_p->info,l_p->next_p,l_p->prev_p);
+
+    }
+
+    printf("\n");
+    return first_node;
+}
+
+l_list * l_list_init(int item) {
+
+    l_list *l_p;
+    l_p = malloc(sizeof(struct linked_list));
+
+    l_p->info = item;
+    l_p->next_p = NULL;
+    l_p->prev_p = NULL;
+
+    //printf("ptr=%d info=%d next=%d prev=%d \n",l_p,l_p->info,l_p->next_p,l_p->prev_p);
+
+    return l_p;
+}
+
+
+
+l_list * add_node(l_list *l_p, int item) {
+
+    struct linked_list *node_p;
+    node_p = malloc(sizeof(struct linked_list));
+
+    if (l_p) l_p->prev_p = node_p;
+
+    node_p->info = item;
+    node_p->next_p = l_p;
+    node_p->prev_p = NULL;
+
+    //printf("ptr=%d info=%d next=%d prev=%d \n",node_p,node_p->info,node_p->next_p,node_p->prev_p);
 
     return node_p;
 }
 
+l_list* add_list(l_list * l_p, int n) {
 
-int main()
-{
-    l_list *list_p;
-    int n,k;
+    for(int i = n - 1; i > 0; i--){
 
-
-    printf("Enter the count of elements of list: ");
-    scanf("%d",&n);
-    printf("How many times displacement of elements needs be done(not more than n)?: ");
-    scanf("%d",&k);
-    printf("\n");
-
-    list_p = l_list_init(n);
-
-
-    /*l_list *first_node = list_p;
-    printf("firts node = %d \n", first_node);
-    free(first_node);
-    */
-
-    if(n > 1) {
-        for(int i = n - 1; i > 0; i--){
-            list_p = add_list(list_p,i);
+            l_p = add_node(l_p, i);
         }
-    }
 
-    printf("\n");
-
-    list_p = print_list(list_p);
-    list_p = move_left(list_p, n,k);
-    printf("\n");
-    list_p = print_list(list_p);
-
-    printf("\n");
-    printf("\n");
-
-    for(int i = 1; i <= n; i++){
-        list_p = del_list(list_p);
-    }
-
-
-    return 0;
+    return l_p;
 }
