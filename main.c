@@ -32,7 +32,7 @@ int main()
     scanf("%d",&k);
     printf("\n");
 
-    if(k <= n) {
+    if(n > 0 && k <= n) {
 
         list_p = l_list_init(n);
         list_p = add_list(list_p,n);
@@ -50,7 +50,7 @@ int main()
         list_p = del_list(list_p,n);
 
     }
-    else printf("k should be less than n, try again");
+    else printf("k shouldn't be more than n and n should be more than 0");
 
 
     return 0;
