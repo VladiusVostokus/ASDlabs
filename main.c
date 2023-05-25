@@ -32,7 +32,7 @@ int main()
     scanf("%d",&k);
     printf("\n");
 
-    if(k < n) {
+    if(k <= n) {
 
         list_p = l_list_init(n);
         list_p = add_list(list_p,n);
